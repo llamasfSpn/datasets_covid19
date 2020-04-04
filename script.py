@@ -32,8 +32,8 @@ if not os.path.isdir('./datasets/output'):
     os.mkdir('./datasets/output')
 
 
-#Dead People Spain
-#Revert row and columns, delete first row
+#Deaths People Spain
+#Revert row and columns, edit rows
 #Treat dataset
 inputFileName="./datasets/COVID 19/ccaa_covid19_fallecidos.csv"
 outputFileName="./datasets/output/ccaa_covid19_fallecidos_test.csv"
