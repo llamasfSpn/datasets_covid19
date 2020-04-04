@@ -4,6 +4,6 @@ Script Python DataSet Covid 19
 
 Treat dataset from https://github.com/datadista/datasets.git
 
-Datas from https://datadista.com/
+Data from https://datadista.com/
 
 Transform Data for use it with Visualizer Plugin WordPress
