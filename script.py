@@ -48,21 +48,49 @@ def revert_csv(name,inputFileName,outputFileName,outputFileEndName):
                 if i==1:
                     w.writerow(['CCAA','Andalucia','Aragon','Asturias','Baleares','Canarias','Cantabria','Castilla-La Mancha','Castilla y Leon','Cataluna','Ceuta','C. Valenciana','Extremadura','Galicia','Madrid','Melilla','Murcia','Navarra','Pais Vasco','La Rioja'])
                 elif i==2:
-                    w.writerow(['date','string','string','string','string','string','string','string','string','string','string','string','string','string','string','string','string','string','string','string'])
+                    w.writerow(['date','number','number','number','number','number','number','number','number','number','number','number','number','number','number','number','number','number','number','number'])
                 else:
                     w.writerow(row[:-1])
                 i += 1
     os.remove(outputFileName)
-    sleep(5)
+    sleep(2)
     print("End Revert "+name)
 
 #Deaths People Spain
-inputFileName="./datasets/COVID 19/ccaa_covid19_fallecidos.csv"
-outputFileName="./datasets/output/ccaa_covid19_fallecidos_test.csv"
-outputFileEndName="./datasets/output/ccaa_covid19_fallecidos_output.csv"
-revert_csv("Deaths CSV",inputFileName,outputFileName,outputFileEndName)
+inputFileDeathsName="./datasets/COVID 19/ccaa_covid19_fallecidos.csv"
+outputFileDeathsName="./datasets/output/ccaa_covid19_fallecidos_test.csv"
+outputFileEndDeathsName="./datasets/output/ccaa_covid19_fallecidos_output.csv"
+revert_csv("Deaths CSV",inputFileDeathsName,outputFileDeathsName,outputFileEndDeathsName)
 #Infected People Spain
-inputFileName="./datasets/COVID 19/ccaa_covid19_casos.csv"
-outputFileName="./datasets/output/ccaa_covid19_casos_test.csv"
-outputFileEndName="./datasets/output/ccaa_covid19_casos_output.csv"
-revert_csv("Infected CSV",inputFileName,outputFileName,outputFileEndName)
+inputFileInfectedName="./datasets/COVID 19/ccaa_covid19_casos.csv"
+outputFileInfectedName="./datasets/output/ccaa_covid19_casos_test.csv"
+outputFileEndInfectedName="./datasets/output/ccaa_covid19_casos_output.csv"
+revert_csv("Infected CSV",inputFileInfectedName,outputFileInfectedName,outputFileEndInfectedName)
+
+
+#Function Get Total
+#Treat dataset
+def get_total(name,inputFileName,outputFileName):
+    print("Start Total "+name)
+    with open(inputFileName, 'rb') as inFile, open(outputFileName, 'wb') as outfile:
+        r = csv.reader(inFile)        
+        w = csv.writer(outfile)        
+        i=1
+        for row in r:
+                lines = []
+                if i==1:
+                    w.writerow(['CCAA','Total'])
+                else:
+                    lines.append(row[1])
+                    lines.append(row[-1])
+                    w.writerow(lines)
+                i += 1
+    sleep(2)
+    print("End Total "+name)
+
+#Deaths People Total Spain
+outputFileDeathsTotalName="./datasets/output/ccaa_covid19_fallecidos_total_output.csv"
+get_total("Deaths CSV",inputFileDeathsName,outputFileDeathsTotalName)
+#Infected People Spain
+outputFileInfectedTotalName="./datasets/output/ccaa_covid19_casos_total_output.csv"
+get_total("Infected CSV",inputFileInfectedName,outputFileInfectedTotalName)
