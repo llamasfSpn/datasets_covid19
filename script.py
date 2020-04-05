@@ -76,14 +76,16 @@ def get_total(name,inputFileName,outputFileName):
         r = csv.reader(inFile)        
         w = csv.writer(outfile)        
         i=1
+        w.writerow(['CCAA','Totales'])
         for row in r:
                 lines = []
                 if i==1:
-                    w.writerow(['CCAA','Total'])
+                    w.writerow(['string','number'])
                 else:
-                    lines.append(row[1])
-                    lines.append(row[-1])
-                    w.writerow(lines)
+                    if row[1]!='Total':
+                        lines.append(row[1])
+                        lines.append(row[-1])
+                        w.writerow(lines)
                 i += 1
     sleep(2)
     print("End "+name)
@@ -106,9 +108,10 @@ def get_national_state(name,inputFileName,outputFileName,outputFileEndName):
         r = csv.reader(inFile)        
         w = csv.writer(outfile)        
         i=1
+        w.writerow(['Estado','Total'])
         for row in r:
                 if i==1:
-                    w.writerow(['Estado','Total'])
+                    w.writerow(['string','number'])
                 else:
                     lines = []
                     lines.append(row[0])
@@ -117,7 +120,7 @@ def get_national_state(name,inputFileName,outputFileName,outputFileEndName):
                 i += 1
     os.remove(outputFileName)
     sleep(2)
-    print("End"+name)
+    print("End "+name)
 
 #Total state People Spain
 inputFileState ="./datasets/COVID 19/nacional_covid19.csv"
@@ -136,9 +139,10 @@ def get_national_state_table(name,inputFileName,outputFileName,outputFileEndName
         r = csv.reader(inFile)        
         w = csv.writer(outfile)        
         i=1
+        w.writerow(['Estados','Total','-1 dia','-2 dias','-3 dias','-4 dias','-5 dias','Situacion'])
         for row in r:
                 if i==1:
-                    w.writerow(['Estados','Total','-1 dia','-2 dias','-3 dias','-4 dias','-5 dias','Situacion'])
+                    w.writerow(['string','number','number','number','number','number','number','string'])
                 else:
                     lines = []
                     lines.append(row[0])
@@ -162,4 +166,3 @@ def get_national_state_table(name,inputFileName,outputFileName,outputFileEndName
 outputFileStateTable="./datasets/output/nacional_covid19_table_output.csv"
 outputFileTestStateTable ="./datasets/output/nacional_covid19_table_test.csv"
 get_national_state_table("Total State Table CSV",inputFileState,outputFileTestStateTable,outputFileStateTable)
-    
