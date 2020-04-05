@@ -37,7 +37,7 @@ if not os.path.isdir('./datasets/output'):
 #Revert row and columns, edit rows
 #Treat dataset
 def revert_csv(name,inputFileName,outputFileName,outputFileEndName):
-    print("Start Revert "+name)
+    print("Start "+name)
     a = izip(*csv.reader(open(inputFileName, "rb")))
     csv.writer(open(outputFileName, "wb")).writerows(a)
     with open(outputFileName, 'rb') as inFile, open(outputFileEndName, 'wb') as outfile:
@@ -54,24 +54,24 @@ def revert_csv(name,inputFileName,outputFileName,outputFileEndName):
                 i += 1
     os.remove(outputFileName)
     sleep(2)
-    print("End Revert "+name)
+    print("End "+name)
 
 #Deaths People Spain
 inputFileDeathsName="./datasets/COVID 19/ccaa_covid19_fallecidos.csv"
 outputFileDeathsName="./datasets/output/ccaa_covid19_fallecidos_test.csv"
 outputFileEndDeathsName="./datasets/output/ccaa_covid19_fallecidos_output.csv"
-revert_csv("Deaths CSV",inputFileDeathsName,outputFileDeathsName,outputFileEndDeathsName)
+revert_csv("Revert Deaths CSV",inputFileDeathsName,outputFileDeathsName,outputFileEndDeathsName)
 #Infected People Spain
 inputFileInfectedName="./datasets/COVID 19/ccaa_covid19_casos.csv"
 outputFileInfectedName="./datasets/output/ccaa_covid19_casos_test.csv"
 outputFileEndInfectedName="./datasets/output/ccaa_covid19_casos_output.csv"
-revert_csv("Infected CSV",inputFileInfectedName,outputFileInfectedName,outputFileEndInfectedName)
+revert_csv("Revert Infected CSV",inputFileInfectedName,outputFileInfectedName,outputFileEndInfectedName)
 
 
 #Function Get Total
 #Treat dataset
 def get_total(name,inputFileName,outputFileName):
-    print("Start Total "+name)
+    print("Start "+name)
     with open(inputFileName, 'rb') as inFile, open(outputFileName, 'wb') as outfile:
         r = csv.reader(inFile)        
         w = csv.writer(outfile)        
@@ -86,20 +86,20 @@ def get_total(name,inputFileName,outputFileName):
                     w.writerow(lines)
                 i += 1
     sleep(2)
-    print("End Total "+name)
+    print("End "+name)
 
 #Deaths People Total Spain
 outputFileDeathsTotalName="./datasets/output/ccaa_covid19_fallecidos_total_output.csv"
-get_total("Deaths CSV",inputFileDeathsName,outputFileDeathsTotalName)
+get_total("Total Deaths CSV",inputFileDeathsName,outputFileDeathsTotalName)
 #Infected People Spain
 outputFileInfectedTotalName="./datasets/output/ccaa_covid19_casos_total_output.csv"
-get_total("Infected CSV",inputFileInfectedName,outputFileInfectedTotalName)
+get_total("Total Infected CSV",inputFileInfectedName,outputFileInfectedTotalName)
 
 
 #Function Get National state
 #Treat dataset
 def get_national_state(name,inputFileName,outputFileName,outputFileEndName):
-    print("Start Revert "+name)
+    print("Start "+name)
     a = izip(*csv.reader(open(inputFileName, "rb")))
     csv.writer(open(outputFileName, "wb")).writerows(a)
     with open(outputFileName, 'rb') as inFile, open(outputFileEndName, 'wb') as outfile:
@@ -124,4 +124,42 @@ inputFileState ="./datasets/COVID 19/nacional_covid19.csv"
 outputFileState="./datasets/output/nacional_covid19_output.csv"
 outputFileTestState ="./datasets/output/nacional_covid19_test.csv"
 get_national_state("Total State CSV",inputFileState,outputFileTestState,outputFileState)
+
+
+#Function Get National state table
+#Treat dataset
+def get_national_state_table(name,inputFileName,outputFileName,outputFileEndName):
+    print("Start "+name)
+    a = izip(*csv.reader(open(inputFileName, "rb")))
+    csv.writer(open(outputFileName, "wb")).writerows(a)
+    with open(outputFileName, 'rb') as inFile, open(outputFileEndName, 'wb') as outfile:
+        r = csv.reader(inFile)        
+        w = csv.writer(outfile)        
+        i=1
+        for row in r:
+                if i==1:
+                    w.writerow(['Estados','Total','-1 dia','-2 dias','-3 dias','-4 dias','-5 dias','Situacion'])
+                else:
+                    lines = []
+                    lines.append(row[0])
+                    lines.append(row[-1])
+                    lines.append(str(int(row[-1])-int(row[-2])))
+                    lines.append(str(int(row[-2])-int(row[-3])))
+                    lines.append(str(int(row[-3])-int(row[-4])))
+                    lines.append(str(int(row[-4])-int(row[-5])))
+                    lines.append(str(int(row[-5])-int(row[-6])))
+                    if int(row[-1])-int(row[-2]) > int(row[-2])-int(row[-3]):
+                        lines.append('Aumenta')
+                    else:
+                        lines.append('Disminuye')
+                    w.writerow(lines)
+                i += 1
+    os.remove(outputFileName)
+    sleep(2)
+    print("End "+name)
+
+#Total state People Spain Table
+outputFileStateTable="./datasets/output/nacional_covid19_table_output.csv"
+outputFileTestStateTable ="./datasets/output/nacional_covid19_table_test.csv"
+get_national_state_table("Total State Table CSV",inputFileState,outputFileTestStateTable,outputFileStateTable)
     
