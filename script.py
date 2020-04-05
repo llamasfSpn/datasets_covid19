@@ -139,10 +139,10 @@ def get_national_state_table(name,inputFileName,outputFileName,outputFileEndName
         r = csv.reader(inFile)        
         w = csv.writer(outfile)        
         i=1
-        w.writerow(['Estados','Total','-1 dia','-2 dias','-3 dias','-4 dias','-5 dias','Situacion'])
+        w.writerow(['Estados','Total','-1 dia','-2 dias','-3 dias','-4 dias','Situacion'])
         for row in r:
                 if i==1:
-                    w.writerow(['string','number','number','number','number','number','number','string'])
+                    w.writerow(['string','number','number','number','number','number','string'])
                 else:
                     lines = []
                     lines.append(row[0])
@@ -151,7 +151,6 @@ def get_national_state_table(name,inputFileName,outputFileName,outputFileEndName
                     lines.append(str(int(row[-2])-int(row[-3])))
                     lines.append(str(int(row[-3])-int(row[-4])))
                     lines.append(str(int(row[-4])-int(row[-5])))
-                    lines.append(str(int(row[-5])-int(row[-6])))
                     if int(row[-1])-int(row[-2]) > int(row[-2])-int(row[-3]):
                         lines.append('Aumenta')
                     else:
