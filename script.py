@@ -94,3 +94,34 @@ get_total("Deaths CSV",inputFileDeathsName,outputFileDeathsTotalName)
 #Infected People Spain
 outputFileInfectedTotalName="./datasets/output/ccaa_covid19_casos_total_output.csv"
 get_total("Infected CSV",inputFileInfectedName,outputFileInfectedTotalName)
+
+
+#Function Get National state
+#Treat dataset
+def get_national_state(name,inputFileName,outputFileName,outputFileEndName):
+    print("Start Revert "+name)
+    a = izip(*csv.reader(open(inputFileName, "rb")))
+    csv.writer(open(outputFileName, "wb")).writerows(a)
+    with open(outputFileName, 'rb') as inFile, open(outputFileEndName, 'wb') as outfile:
+        r = csv.reader(inFile)        
+        w = csv.writer(outfile)        
+        i=1
+        for row in r:
+                if i==1:
+                    w.writerow(['Estado','Total'])
+                else:
+                    lines = []
+                    lines.append(row[0])
+                    lines.append(row[-1])
+                    w.writerow(lines)
+                i += 1
+    os.remove(outputFileName)
+    sleep(2)
+    print("End"+name)
+
+#Total state People Spain
+inputFileState ="./datasets/COVID 19/nacional_covid19.csv"
+outputFileState="./datasets/output/nacional_covid19_output.csv"
+outputFileTestState ="./datasets/output/nacional_covid19_test.csv"
+get_national_state("Total State CSV",inputFileState,outputFileTestState,outputFileState)
+    
