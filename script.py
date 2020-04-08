@@ -147,14 +147,15 @@ def get_national_state_table(name,inputFileName,outputFileName,outputFileEndName
                     lines = []
                     lines.append(row[0])
                     lines.append(row[-1])
-                    lines.append(str(int(row[-1])-int(row[-2])))
-                    lines.append(str(int(row[-2])-int(row[-3])))
-                    lines.append(str(int(row[-3])-int(row[-4])))
-                    lines.append(str(int(row[-4])-int(row[-5])))
-                    if int(row[-1])-int(row[-2]) > int(row[-2])-int(row[-3]):
-                        lines.append('Aumenta')
-                    else:
-                        lines.append('Disminuye')
+		    if row[-1] and row[-2] and row[-3] and row[-4] and row[-5]:
+		            lines.append(str(int(row[-1])-int(row[-2])))
+		            lines.append(str(int(row[-2])-int(row[-3])))
+		            lines.append(str(int(row[-3])-int(row[-4])))
+		            lines.append(str(int(row[-4])-int(row[-5])))
+		            if int(row[-1])-int(row[-2]) > int(row[-2])-int(row[-3]):
+		                lines.append('Aumenta')
+		            else:
+		                lines.append('Disminuye')
                     w.writerow(lines)
                 i += 1
     os.remove(outputFileName)
