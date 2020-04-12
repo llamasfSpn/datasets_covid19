@@ -142,22 +142,24 @@ def get_national_state_table(name,inputFileName,outputFileName,outputFileEndName
         i=1
         w.writerow(['Estados','Total','-1 dia','-2 dias','-3 dias','-4 dias','Situacion'])
         for row in r:
+                  
                 if i==1:
                     w.writerow(['string','number','number','number','number','number','string'])
                 else:
-                    lines = []                    
+                    
 		    if row[-1] and row[-2] and row[-3] and row[-4] and row[-5]:
-			lines.append(row[0])
-			lines.append(row[-1])
-			lines.append(str(int(row[-1])-int(row[-2])))
-			lines.append(str(int(row[-2])-int(row[-3])))
-			lines.append(str(int(row[-3])-int(row[-4])))
-			lines.append(str(int(row[-4])-int(row[-5])))
-			if int(row[-1])-int(row[-2]) > int(row[-2])-int(row[-3]):
+                            lines = []	
+			    lines.append(row[0])
+                            lines.append(row[-1]) 
+			    lines.append(str(int(row[-1])-int(row[-2])))
+			    lines.append(str(int(row[-2])-int(row[-3])))
+			    lines.append(str(int(row[-3])-int(row[-4])))
+			    lines.append(str(int(row[-4])-int(row[-5])))
+			    if int(row[-1])-int(row[-2]) > int(row[-2])-int(row[-3]):
 				lines.append('Aumenta')
-			else:
+			    else:
 				lines.append('Disminuye')
-			    	w.writerow(lines)
+		            w.writerow(lines)
                 i += 1
     os.remove(outputFileName)
     sleep(2)
